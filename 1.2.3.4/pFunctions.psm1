@@ -2,13 +2,26 @@ using module ./PClass.psm1
 
 <#
 .SYNOPSIS
-Short description
+Performs Read Query to PostgreSQL Database
 .DESCRIPTION
-Long description
-.PARAMETER
+Performs Read Query to PostgreSQL Database.  See Notes.
+.PARAMETER Credential
 Param Info
-.PARAMETER
+.PARAMETER Database
 Param Info
+.PARAMETER Driver
+Param Info
+.PARAMETER Port
+Param Info
+.PARAMETER Password
+Param Info
+.PARAMETER Query
+Param Info
+.PARAMETER Server
+Param Info
+.PARAMETER User
+Param Info
+.NOTES
 .EXAMPLE
 Example of how to use this cmdlet
 .EXAMPLE
@@ -141,6 +154,7 @@ Long description
 Param Info
 .PARAMETER
 Param Info
+.NOTES
 .EXAMPLE
 Example of how to use this cmdlet
 .EXAMPLE
