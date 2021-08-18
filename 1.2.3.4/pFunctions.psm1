@@ -6,30 +6,51 @@ Performs Read Query to PostgreSQL Database
 .DESCRIPTION
 Performs Read Query to PostgreSQL Database.  See Notes.
 .PARAMETER Credential
-Param Info
+PSCredential of Database User and Password.  Use in lieu of User & Pswd
+Parameters.  $MyCreds = Get-Credential.  See Examples.
 .PARAMETER Database
-Param Info
+Target PostgreSQL database
 .PARAMETER Driver
-Param Info
+PostgreSQL ODBC driver.  Defaults to {PostgreSQL Unicode(x64)}.  See Notes.
+Select one of:  {PostgreSQL Unicode(x64)}, {PostgreSQL Unicode},
+{PostgreSQL ANSI(x64)} or {PostgreSQL ANSI}.
 .PARAMETER Port
-Param Info
-.PARAMETER Password
-Param Info
+Port number PostgreSQL is listening on.  Defaults to 5432.
+.PARAMETER Pswd
+Password of database user if Credential parameter is not used.  Not secure.
 .PARAMETER Query
-Param Info
+SQL Query to execute.  Example:  "SELECT * FROM table_1;"
 .PARAMETER Server
-Param Info
+Server hosting the target PostgreSQL database.
 .PARAMETER User
-Param Info
+Database user name if Credential parameter is not used.  Defaults to postgres.
 .NOTES
+Requires installation of postgreSQL ODBC Drivers:
+https://www.postgresql.org/ftp/odbc/versions/msi/
+.LINK
+Get-Credential
+https://www.postgresql.org/ftp/odbc/versions/msi/
 .EXAMPLE
-Example of how to use this cmdlet
+Ensure postgreSQL ODBC Drivers are installed.  See Notes.
+
+Retrieve records with credentials:
+
+$c = Get-Credential -UserName my_user
+$s = 'test1.example.org'
+$d = 'my_dbase'
+$q = "SELECT * FROM table_1;"
+
+Get-PostgresData -Server $s -Database $d -Query $q -Credential $c
+
 .EXAMPLE
-Another example of how to use this cmdlet
-.INPUTS
-Inputs to this cmdlet (if any)
+This example uses variables declared in Example 1 above.
+
+Retrieve records with default user (postgres) and non-default port:
+
+Get-PostgresData -Server $s -Database $d -Query $q -Port 7777
+
 .OUTPUTS
-Output from this cmdlet (if any)
+System.Data.DataRow
 #>
 function Get-PostgresData
 {
@@ -141,28 +162,64 @@ function Get-PostgresData
     }
 }
 
-
-
-
-
 <#
 .SYNOPSIS
-Short description
+
+Performs Insert, Update, Delete Queries to PostgreSQL Database
+
 .DESCRIPTION
-Long description
-.PARAMETER
-Param Info
-.PARAMETER
-Param Info
+
+Performs Insert, Update, Delete Queries to PostgreSQL Database.  See Notes.
+
+
+.PARAMETER Credential
+PSCredential of Database User and Password.  Use in lieu of User & Pswd
+Parameters.  $MyCreds = Get-Credential.  See Examples.
+.PARAMETER Database
+Target PostgreSQL database
+.PARAMETER Driver
+PostgreSQL ODBC driver.  Defaults to {PostgreSQL Unicode(x64)}.  See Notes.
+Select one of:  {PostgreSQL Unicode(x64)}, {PostgreSQL Unicode},
+{PostgreSQL ANSI(x64)} or {PostgreSQL ANSI}.
+.PARAMETER Port
+Port number PostgreSQL is listening on.  Defaults to 5432.
+.PARAMETER Pswd
+Password of database user if Credential parameter is not used.  Not secure.
+.PARAMETER Query
+
+SQL Query to execute.  Example:  "SELECT * FROM table_1;"
+
+.PARAMETER Server
+Server hosting the target PostgreSQL database.
+.PARAMETER User
+Database user name if Credential parameter is not used.  Defaults to postgres.
 .NOTES
+Requires installation of postgreSQL ODBC Drivers:
+https://www.postgresql.org/ftp/odbc/versions/msi/
+.LINK
+Get-Credential
+https://www.postgresql.org/ftp/odbc/versions/msi/
+
+
 .EXAMPLE
-Example of how to use this cmdlet
+Ensure postgreSQL ODBC Drivers are installed.  See Notes.
+
+Retrieve records with credentials:
+
+$c = Get-Credential -UserName my_user
+$s = 'test1.example.org'
+$d = 'my_dbase'
+$q = "SELECT * FROM table_1;"
+
+Get-PostgresData -Server $s -Database $d -Query $q -Credential $c
+
 .EXAMPLE
-Another example of how to use this cmdlet
-.INPUTS
-Inputs to this cmdlet (if any)
-.OUTPUTS
-Output from this cmdlet (if any)
+This example uses variables declared in Example 1 above.
+
+Retrieve records with default user (postgres) and non-default port:
+
+Get-PostgresData -Server $s -Database $d -Query $q -Port 7777
+
 #>
 function Set-PostgresData
 {
