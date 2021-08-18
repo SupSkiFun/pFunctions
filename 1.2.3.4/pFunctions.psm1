@@ -164,14 +164,9 @@ function Get-PostgresData
 
 <#
 .SYNOPSIS
-
 Performs Insert, Update, Delete Queries to PostgreSQL Database
-
 .DESCRIPTION
-
 Performs Insert, Update, Delete Queries to PostgreSQL Database.  See Notes.
-
-
 .PARAMETER Credential
 PSCredential of Database User and Password.  Use in lieu of User & Pswd
 Parameters.  $MyCreds = Get-Credential.  See Examples.
@@ -186,9 +181,7 @@ Port number PostgreSQL is listening on.  Defaults to 5432.
 .PARAMETER Pswd
 Password of database user if Credential parameter is not used.  Not secure.
 .PARAMETER Query
-
-SQL Query to execute.  Example:  "SELECT * FROM table_1;"
-
+SQL Query to execute.  Example:  "CREATE DATABASE test_db;"
 .PARAMETER Server
 Server hosting the target PostgreSQL database.
 .PARAMETER User

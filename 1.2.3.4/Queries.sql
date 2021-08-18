@@ -18,3 +18,4 @@ SELECT * from pg_extension;
 SELECT * FROM test_tb_1;
 SELECT * FROM test_tb_2;
 SELECT * FROM test_tb_2 WHERE amount >= 10;
+SELECT * from pg_catalog.pg_tables WHERE tablename='test_tb_2';
