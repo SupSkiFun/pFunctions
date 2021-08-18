@@ -12,6 +12,7 @@ ALTER TABLE test_tb_2 DROP COLUMN amount;
 DROP TABLE test_tb_2;
 DROP DATABASE test_db;
 
+
 -- Read Queries
 SELECT datname FROM pg_database;
 SELECT * from pg_extension;

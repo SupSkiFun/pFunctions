@@ -187,8 +187,9 @@ Server hosting the target PostgreSQL database.
 .PARAMETER User
 Database user name if Credential parameter is not used.  Defaults to postgres.
 .NOTES
-Requires installation of postgreSQL ODBC Drivers:
-https://www.postgresql.org/ftp/odbc/versions/msi/
+1. Requires installation of postgreSQL ODBC Drivers:
+   https://www.postgresql.org/ftp/odbc/versions/msi/
+2. Queries.sql contains sample queries.
 .LINK
 Get-Credential
 https://www.postgresql.org/ftp/odbc/versions/msi/
