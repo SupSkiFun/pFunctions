@@ -1,3 +1,4 @@
+-- Modify Queries
 CREATE DATABASE test_db;
 CREATE EXTENSION plpython3u;  -- Will fail if PL/Python3 is not installed
 CREATE TABLE test_tb_1(item VARCHAR,amount NUMERIC);
@@ -11,7 +12,9 @@ ALTER TABLE test_tb_2 DROP COLUMN amount;
 DROP TABLE test_tb_2;
 DROP DATABASE test_db;
 
-\dt+
+-- Read Queries
+SELECT datname FROM pg_database;
+SELECT * from pg_extension;
 SELECT * FROM test_tb_1;
 SELECT * FROM test_tb_2;
 SELECT * FROM test_tb_2 WHERE amount >= 10;
