@@ -6,10 +6,10 @@ Performs Read Query to PostgreSQL Database
 .DESCRIPTION
 Performs Read Query to PostgreSQL Database.  See Notes.
 .PARAMETER Credential
-PSCredential of Database User and Password.  Use in lieu of User & Pswd
-Parameters.  $MyCreds = Get-Credential.  See Examples.
+PSCredential of Database User and Password.  Use in lieu of User & Pswd Parameters.
+$MyCreds = Get-Credential.  See Examples.
 .PARAMETER Database
-Target PostgreSQL database
+PostgreSQL database name.
 .PARAMETER Driver
 PostgreSQL ODBC driver.  Defaults to {PostgreSQL Unicode(x64)}.  See Notes.
 Select one of:  {PostgreSQL Unicode(x64)}, {PostgreSQL Unicode},
@@ -19,14 +19,16 @@ Port number PostgreSQL is listening on.  Defaults to 5432.
 .PARAMETER Pswd
 Password of database user if Credential parameter is not used.  Not secure.
 .PARAMETER Query
-SQL Query to execute.  Example:  "SELECT * FROM table_1;"
+SQL Query to execute.  Example:  "SELECT * FROM test_tb_1;"
 .PARAMETER Server
 Server hosting the target PostgreSQL database.
 .PARAMETER User
 Database user name if Credential parameter is not used.  Defaults to postgres.
 .NOTES
-Requires installation of postgreSQL ODBC Drivers:
-https://www.postgresql.org/ftp/odbc/versions/msi/
+1. Requires installation of postgreSQL ODBC Drivers:
+   https://www.postgresql.org/ftp/odbc/versions/msi/
+2. More example queries are listed in queries.sql.
+3. Postgres tables named 'Item' don't display properly.
 .LINK
 Get-Credential
 https://www.postgresql.org/ftp/odbc/versions/msi/
@@ -37,8 +39,8 @@ Retrieve records with credentials:
 
 $c = Get-Credential -UserName my_user
 $s = 'test1.example.org'
-$d = 'my_dbase'
-$q = "SELECT * FROM table_1;"
+$d = 'test_db'
+$q = "SELECT * FROM test_tb_1;"
 
 Get-PostgresData -Server $s -Database $d -Query $q -Credential $c
 
@@ -164,14 +166,14 @@ function Get-PostgresData
 
 <#
 .SYNOPSIS
-Performs Insert, Update, Delete Queries to PostgreSQL Database
+Performs Modify Queries on PostgreSQL Database
 .DESCRIPTION
-Performs Insert, Update, Delete Queries to PostgreSQL Database.  See Notes.
+Performs Modify (e.g. Create, Insert, Update, Alter, Delete, Drop, etc.) on PostgreSQL Databases.  See Notes.
 .PARAMETER Credential
-PSCredential of Database User and Password.  Use in lieu of User & Pswd
-Parameters.  $MyCreds = Get-Credential.  See Examples.
+PSCredential of Database User and Password.  Use in lieu of User & Pswd Parameters.
+$MyCreds = Get-Credential.  See Examples.
 .PARAMETER Database
-Target PostgreSQL database
+PostgreSQL database name.
 .PARAMETER Driver
 PostgreSQL ODBC driver.  Defaults to {PostgreSQL Unicode(x64)}.  See Notes.
 Select one of:  {PostgreSQL Unicode(x64)}, {PostgreSQL Unicode},
@@ -189,7 +191,7 @@ Database user name if Credential parameter is not used.  Defaults to postgres.
 .NOTES
 1. Requires installation of postgreSQL ODBC Drivers:
    https://www.postgresql.org/ftp/odbc/versions/msi/
-2. Queries.sql contains sample queries.
+2. More example queries are listed in queries.sql.
 .LINK
 Get-Credential
 https://www.postgresql.org/ftp/odbc/versions/msi/
@@ -198,21 +200,35 @@ https://www.postgresql.org/ftp/odbc/versions/msi/
 .EXAMPLE
 Ensure postgreSQL ODBC Drivers are installed.  See Notes.
 
-Retrieve records with credentials:
+Declare variables for Examples:
 
 $c = Get-Credential -UserName my_user
 $s = 'test1.example.org'
-$d = 'my_dbase'
-$q = "SELECT * FROM table_1;"
+$d = 'test_db'
+$p = 'postgres'
+$q1 = 'CREATE DATABASE test_db;'
+$q2 = 'CREATE TABLE test_tb_1(gadget VARCHAR,amount NUMERIC);'
+$q3 = "INSERT INTO test_tb_1(gadget, amount) VALUES ('arrows',20),('skis',10),('SUPs',4);"
+$q4 = 'ALTER TABLE test_tb_1 RENAME gadget TO thing;'
+$q5 = 'DROP TABLE test_tb_1;'
+$q6 = 'DROP DATABASE test_db;'
 
-Get-PostgresData -Server $s -Database $d -Query $q -Credential $c
+Create database with credentials:
+
+Set-PostgresData -Server $s -Database $p -Query $q1 -Credential $c
 
 .EXAMPLE
+Ensure postgreSQL ODBC Drivers are installed.  See Notes.
+
 This example uses variables declared in Example 1 above.
 
-Retrieve records with default user (postgres) and non-default port:
+Create table, insert records, modify table, drop table, drop database:
 
-Get-PostgresData -Server $s -Database $d -Query $q -Port 7777
+Set-PostgresData -Server $s -Database $d -Query $q2 -Credential $c
+Set-PostgresData -Server $s -Database $d -Query $q3 -Credential $c
+Set-PostgresData -Server $s -Database $d -Query $q4 -Credential $c
+Set-PostgresData -Server $s -Database $d -Query $q5 -Credential $c
+Set-PostgresData -Server $s -Database $p -Query $q6 -Credential $c
 
 #>
 function Set-PostgresData
